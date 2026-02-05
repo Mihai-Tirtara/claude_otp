@@ -366,33 +366,33 @@ import de.dkfz.tbi.otp.utils.CollectionUtils
 
 | Need to... | Read this |
 |------------|-----------|
-| Create UI components | [UI_development_guide.md](resources/UI_development_guide.md)
-| Write tests | [testing_guide.md](resources/testing_guide.md) |
-| Code review | [review_guide.md](resources/review_guide.md) |
-| Static analysis | [coding_style_guide.md](resources/coding_style_guide.md) |
+| Create UI components | [UI_development_guide.md](coding-guidelines/resources/UI_development_guide.md)
+| Write tests | [testing_guide.md](coding-guidelines/resources/testing_guide.md) |
+| Code review | [review_guide.md](coding-guidelines/resources/review_guide.md) |
+| Static analysis | [coding_style_guide.md](coding-guidelines/resources/coding_style_guide.md) |
 
 ---
 
 ## Resource Files
 
-### [UI_development_guide.md](resources/UI_development_guide.md)
+### [UI_development_guide.md](coding-guidelines/resources/UI_development_guide.md)
 
 GSP views, Bootstrap 4/5, JavaScript patterns, asset pipeline, toaster messages
 
-### [testing_guide.md](resources/testing_guide.md)
+### [testing_guide.md](coding-guidelines/resources/testing_guide.md)
 
 Spock testing framework, mocking/stubbing, unit/integration/workflow tests, Cypress E2E
 
-### [review_guide.md](resources/review_guide.md)
+### [review_guide.md](coding-guidelines/resources/review_guide.md)
 
 Code review checklist, requirements validation, testing verification, documentation
 
-### [coding_style_guide.md](resources/coding_style_guide.md)
+### [coding_style_guide.md](coding-guidelines/resources/coding_style_guide.md)
 
 CodeNarc rules, ESLint configuration, static analysis, IDE setup
 
 ---
 
-**Skill Status**: COMPLETE 
-**Line Count**: < 500 
+**Skill Status**: COMPLETE
+**Line Count**: < 500
 **Technology Stack**: Grails 6.x, Groovy 3.x, Spring Boot 3.x, GORM, PostgreSQL, Spock

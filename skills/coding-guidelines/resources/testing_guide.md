@@ -472,6 +472,24 @@ otp.security.ldap.enabled=true
 ./gradlew runCypressTestsInWindow
 ```
 
+---
+
+## Performance Optimization
+
+### Strategies to Reduce Test Duration
+
+1. **Always use Spock** - Spock tests are faster than JUnit
+2. **Remove unused code** - Clean up obsolete tests
+3. **Mock domain objects** - Avoid database writes
+   - Short-circuit domain reference chains by mocking
+   - Don't use domain factory unless necessary
+4. **Use in-memory filesystem** - For file operations
+   - Java in-memory filesystem (requires `Path` instead of `File`)
+   - OS-level: shared-memory filesystem (`/dev/shm`)
+5. **Profile tests** - Identify bottlenecks
+   - Use Gradle scan tool for performance reports
+   - Sort by duration and optimize slowest tests
+6. **Test with appropriate permissions** - Don't only test as admin
 
 ### TemporaryFolder for Test Files
 
@@ -502,11 +520,11 @@ def "should create temporary files"() {
 **Order of preference:**
 
 1. **Spock** (Primary)
-    - Mock
-    - Stub
-    - GroovyMock (only for static/dynamic methods)
-    - Spy (avoid - indicates design smell)
-    - GroovySpy (avoid - design smell)
+   - Mock
+   - Stub
+   - GroovyMock (only for static/dynamic methods)
+   - Spy (avoid - indicates design smell)
+   - GroovySpy (avoid - design smell)
 2. **Map Coercion** (Legacy only)
 3. **Inheritance** (Legacy only)
 4. **MetaClass** (Avoid - side effects)

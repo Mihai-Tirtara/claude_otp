@@ -70,7 +70,17 @@ fi
 # Deduplicate and output
 if [[ -n "$SUGGESTIONS" ]]; then
   DEDUPED=$(echo -e "$SUGGESTIONS" | sort -u)
-  echo "{\"feedback\": \"📚 Suggested skills:\\n$DEDUPED\"}"
+  echo "📚 Suggested skills:"
+  echo "$DEDUPED"
+
+  # Log skill usage to the tools log
+  DATE=$(date +%Y-%m-%d)
+  TIME=$(date +%H:%M:%S)
+  LOG_FILE="${CLAUDE_PROJECT_DIR:-.}/.claude/logs/tools-$DATE.log"
+  echo "$DEDUPED" | while IFS= read -r line; do
+    SKILL_FILE=$(echo "$line" | sed 's/^.*: //')
+    [[ -n "$SKILL_FILE" ]] && echo "$TIME|SkillRouter|$SKILL_FILE" >> "$LOG_FILE"
+  done
 fi
 
 exit 0

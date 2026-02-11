@@ -1,6 +1,6 @@
----
+1---
 name: plan
-description: Create implementation plan from the worklog
+description: Create implementation plan 
 argument-hint: "OTP-1234 (or leave empty to auto-detect)"
 ---
 
@@ -15,20 +15,36 @@ Investigate:
 2. What the minimal change set is — fewest files touched
 3. What tests are needed — check existing test patterns with `find src/test -name "*Spec.groovy" | head -20`
 
-Update the worklog:
+Write the plan to `.claude/worklogs/$ARGUMENTS-worklog.md` with these sections:
 
-**## Approach** — Fill in with under 50 words. No code. Just the strategy.
+**## Context** — Summarize the problem being solved. What's broken or missing, and why this change is needed. Keep it concise (2-4 sentences).
 
-**## Tasks** — Fill in as checkbox items:
+**## Approach** — The high-level strategy. No code, just describe the approach in plain language.
+
+**## Changes** — Checkbox items, one per file or logical change. Each item has the file path as header and nested bullet points describing the specific modifications:
 ```
-- [ ] Modify X in grails-app/services/FooService.groovy
-- [ ] Add test in src/test/groovy/FooServiceSpec.groovy
-- [ ] Update GSP template grails-app/views/foo/index.gsp
+- [ ] `grails-app/services/de/dkfz/tbi/otp/ngsdata/FooService.groovy`
+  - Add new method `doSomething(Project project)`:
+    - Case A → behavior X
+    - Case B → behavior Y
+  - Modify `existingMethod()` to accept new parameter
+
+- [ ] `src/test/groovy/de/dkfz/tbi/otp/ngsdata/FooServiceSpec.groovy`
+  - Add test cases for `doSomething`: case A, case B, edge case C
+  - Update existing test to pass new parameter
+```
+
+**## Verification** — List the specific commands to verify the changes:
+```
+- Run unit tests: `./gradlew test --tests "*FooServiceSpec*"`
+- Run integration tests: `./gradlew integrationTest --tests "*FooServiceIntegrationSpec*"`
+- Run CodeNarc: `./devScripts/codenarc-changed-files.sh`
 ```
 
 Rules:
-- Each task = one file or one logical change
-- Include the file path in each task
-- Do NOT write any implementation code
-- Do NOT generate code snippets or pseudo-code
+- Each checkbox = one file or one logical change
+- Include the full file path in each checkbox
+- Nested bullets describe *what* changes, not *how* (no code snippets)
+- Do NOT write any implementation code or pseudo-code
 - If a Brainstorm section exists, use the selected approach
+- Include relevant tables or matrices if they clarify requirements (e.g. permission matrices, state transitions)

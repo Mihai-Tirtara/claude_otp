@@ -91,6 +91,23 @@ There are different methods to include the icons. In OTP we use the font method.
 
 Old OTP pages are using the flash messages which comes within Grails. Flash messages have the disadvantage that a page reload is required. To prevent this new methods should be REST-like and return JSON objects or http error codes. In the case an error occurs, otp can send a toast message.
 
+### Flash Message Templates
+
+For pages that still use server-side flash messages (e.g. form submissions with redirects), there are two GSP templates:
+
+| Template | Path | Layout | Status |
+|----------|------|--------|--------|
+| `/templates/messages` | `views/templates/_messages.gsp` | main (old) | Deprecated |
+| `/layouts/messages` | `views/layouts/_messages.gsp` | application (Bootstrap) | Current |
+
+Pages using the **application** layout must use `/layouts/messages`:
+
+    <g:render template="/layouts/messages"/>
+
+The old `/templates/messages` uses `info-box` CSS classes that are not styled under the Bootstrap layout.
+
+### JavaScript Toast Messages
+
 A toast message can be triggered out of every JavaScript method inside OTP.
 
 **Examples:**

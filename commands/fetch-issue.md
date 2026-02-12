@@ -8,7 +8,7 @@ Fetch issue $ARGUMENTS from YouTrack:
 
 ```bash
 curl -s -H "Authorization: Bearer $YOUTRACK_TOKEN" \
-  "https://YOUR_INSTANCE.youtrack.cloud/api/issues/$ARGUMENTS?fields=idReadable,summary,description,customFields(name,value(name))" 
+  "https://one-touch-pipeline.myjetbrains.com/issues/$ARGUMENTS?fields=idReadable,summary,description,customFields(name,value(name))" 
 ```
 
 From the response, extract:
@@ -23,7 +23,7 @@ Create the file `.claude/worklogs/$ARGUMENTS-worklog.md` using this exact templa
 # $ARGUMENTS: [title from YouTrack]
 
 ## Issue
-[2-5 lines max. Just what needs to happen and acceptance criteria. No copy-paste of entire description.]
+[2-5 lines description. What needs to happen, acceptance criteria and TO-DO in list format. No copy-paste of entire description.]
 
 ## Approach
 [Leave empty — filled by /plan]

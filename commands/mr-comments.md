@@ -8,7 +8,7 @@ Fetch comments for merge request $ARGUMENTS:
 
 ```bash
 curl -s --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-  "https://gitlab.com/api/v4/projects/YOUR_PROJECT_ID/merge_requests/$ARGUMENTS/notes?per_page=100"
+  "https://gitlab.com/api/v4/projects/one-touch-pipeline/otp/merge_requests/$ARGUMENTS/notes?per_page=100"
 ```
 
 Filter the response:

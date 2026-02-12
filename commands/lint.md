@@ -1,7 +1,9 @@
 ---
 name: lint
-description: Run CodeNarc linting on the project
+description: Run CodeNarc and ESLint linting on the project
 ---
+
+## Groovy (CodeNarc)
 
 Run:
 ```bash
@@ -14,3 +16,16 @@ If violations are found:
 - Ask before fixing: "Found X violations. Fix them?"
 
 If clean, say "CodeNarc passed — no violations."
+
+## JavaScript (ESLint)
+
+Run:
+```bash
+./gradlew eslint 2>&1
+```
+
+If violations are found:
+- List each violation with file, line, rule name, and message
+- Ask before fixing: "Found X violations. Fix them?"
+
+If clean, say "ESLint passed — no violations."

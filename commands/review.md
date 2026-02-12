@@ -23,6 +23,7 @@ Review the diff against these criteria:
 5. **CodeNarc**: Run `./devsScripts/codenarc-changed-files.sh` and report results.
 6. **GSP changes**: Check for XSS (unescaped `${}`), missing `<g:message>` for i18n.
 7. **Domain changes**: If domain classes changed, is there a migration?
+8. **Grammar Mistake**: Check for grammar or logical mistakes in comments.
 
 For each issue found, output:
 ```

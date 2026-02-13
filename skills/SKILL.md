@@ -192,20 +192,28 @@ class Project {
 }
 ```
 
-### 4. Use GORM Dynamic Finders, NOT Raw SQL
+### 4. GORM Query Preferences (Best to Worst)
+
+1. **Where queries** — compile-time checked, safest option
+2. **Dynamic finders** — generated at runtime, require `@CompileDynamic` annotation
+3. **Criteria queries** — more flexible than dynamic finders but highly verbose
+4. **HQL** — use only as a last resort
 
 ```groovy
-// ❌ AVOID: Raw SQL
-def users = User.executeQuery("SELECT u FROM User u WHERE u.active = true")
+// ✅ BEST: Where queries (compile-time checked)
+def users = User.where { active == true }.list()
 
-// ✅ PREFER: GORM finders
+// ✅ GOOD: Dynamic finders (requires @CompileDynamic)
 def users = User.findAllByActive(true)
 
-// ✅ PREFER: Criteria queries for complex cases
+// ✅ OK: Criteria queries for complex cases
 def results = User.createCriteria().list {
     eq('active', true)
     order('name', 'asc')
 }
+
+// ❌ AVOID: HQL / Raw SQL
+def users = User.executeQuery("SELECT u FROM User u WHERE u.active = true")
 ```
 
 ### 5. Secure All Controller Actions with @PreAuthorize
@@ -322,16 +330,23 @@ import de.dkfz.tbi.otp.utils.CollectionUtils
 | 404 | NOT_FOUND | Resource missing |
 | 500 | INTERNAL_SERVER_ERROR | Server error |
 
-### GORM Query Methods
+### GORM Query Methods (Preferred Order)
 
-- `findBy*()` - Find single record
-- `findAllBy*()` - Find multiple records
-- `countBy*()` - Count matching records
-- `listOrderBy*()` - List with ordering
-- `Domain.get(id)` - Get by ID (returns null if not found)
-- `Domain.load(id)` - Get proxy by ID (throws exception)
-- `Domain.createCriteria()` - Complex queries
-- `Domain.withCriteria {}` - Criteria builder DSL
+1. **Where queries** (compile-time checked):
+   - `Domain.where { field == value }.list()` - Query with compile-time checking
+   - `Domain.where { field == value }.get()` - Single result
+2. **Dynamic finders** (require `@CompileDynamic`):
+   - `findBy*()` - Find single record
+   - `findAllBy*()` - Find multiple records
+   - `countBy*()` - Count matching records
+   - `listOrderBy*()` - List with ordering
+3. **Direct lookups**:
+   - `Domain.get(id)` - Get by ID (returns null if not found)
+   - `Domain.load(id)` - Get proxy by ID (throws exception)
+4. **Criteria** (verbose, use when needed):
+   - `Domain.createCriteria()` - Complex queries
+   - `Domain.withCriteria {}` - Criteria builder DSL
+5. **HQL** (last resort only)
 
 ### Reference Services
 

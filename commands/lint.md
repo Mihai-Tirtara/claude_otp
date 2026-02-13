@@ -11,6 +11,7 @@ Run:
 ```
 
 If violations are found:
+- The detailed report can be found at: `build/reports/codenarc/files.txt`
 - List each violation with file, line, rule name, and message
 - Group by severity (priority 1 = error, 2 = warning, 3 = info)
 - Ask before fixing: "Found X violations. Fix them?"
